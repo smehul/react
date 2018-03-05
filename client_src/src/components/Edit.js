@@ -89,33 +89,35 @@ class Edit extends Component {
         reader.readAsDataURL(file)
     } 
 
-    onSubmit(e){    
-        let setImg = this.state.img;
-        if(this.state.changePic){
-            setImg = this.state.file;
+    onSubmit(e){   
+
+        let setImg = this.state.imagePreviewUrl;
+        if(!this.state.changePic){
+            setImg = this.state.img;
         }
         const updateUser = {
             username: this.refs.uname.value,
             firstname: this.refs.fname.value,
             lastname: this.refs.lname.value,
-            img: this.state.file,
+            img: setImg,
             address: this.refs.address.value,
             email: this.refs.email.value,
             password: this.refs.pass.value,
             contact: this.refs.contact.value
         }
         console.log(updateUser)
-        //this.editUser(updateUser);
+        this.editUser(updateUser);
         e.preventDefault();
     }
+
+    removePic(){
+        this.setState({
+            img:"",
+            imagePreviewUrl:""
+        })
+    }
+
     render(){
-        let reader = new FileReader();
-        reader.onloadend = () => {
-            this.setState({
-              file: this.state.img,
-              imagePreviewUrl: reader.result
-            });
-        }
         let {imagePreviewUrl} = this.state;
         let $imagePreview = null;
        
@@ -137,7 +139,9 @@ class Edit extends Component {
                                 <input className="fileInput" 
                                     type="file" 
                                     onChange={(e)=>this._handleImageChange(e)} ref="img" name="img"/>  
+                                <button onClick={this.removePic.bind(this)} >Remove Image</button>
                                 </div>
+
                         </div>
                         <div className="row">
                             <div className="input-field col s6">

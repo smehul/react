@@ -22,14 +22,8 @@ class Register extends Component {
     }
 
     onSubmit(e){
-        let {imagePreviewUrl} = this.state;
-        this.setState({
-            imagePreviewUrl:this.state
-        })
         let setImg = this.state.imagePreviewUrl;
-        if(!setImg){
-            setImg = "";
-        }
+        
         const NewUser = {
             username: this.refs.uname.value,
             firstname: this.refs.fname.value,
@@ -84,7 +78,8 @@ class Register extends Component {
                                 </div>
                                 <input className="fileInput" 
                                     type="file" 
-                                    onChange={(e)=>this._handleImageChange(e)} ref="img" name="img"/>  
+                                    onChange={(e)=>this._handleImageChange(e)} ref="img" name="img"/> 
+                                 
                             </div>
                         </div>
                         <div className="row">
