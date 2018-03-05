@@ -78,13 +78,13 @@ class Login extends Component {
                 <form onSubmit={this.onSubmit.bind(this)}>
                     <div className="row">
                         <div className="input-field col s4">
-                            <input type="text" name="uname" ref="uname"/>
+                            <input type="text" name="uname" ref="uname" required/>
                             <label htmlFor="uname" className="active" >Username/Email</label>
                         </div>
                     </div>
                     <div className="row">
                         <div className="input-field col s4">
-                            <input type="password" name="pass" ref="pass"/>
+                            <input type="password" name="pass" ref="pass" required/>
                             <label  htmlFor="pass" className="active" >Password</label>
                         </div>
                     </div>

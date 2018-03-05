@@ -48,7 +48,9 @@ class Detail extends Component {
         return(
             
             <div>
+                
                 <div className="container">
+
                     <h1>Welcome ..{this.state.users.firstname} {this.state.users.lastname} !</h1>
                         
                         <button onClick={this.onDelete.bind(this)} className="btn red right"> Delect Account </button>
@@ -57,8 +59,8 @@ class Detail extends Component {
                     <div className="row">
                         <div className="col-md-3">
                             <div className="text-center">
-                                <img src={`${this.state.users.img}`} className="avatar img-circle" alt="avatar"/>
-                                <h6>Upload a different photo...</h6>
+                                <img src={`${this.state.users.img}`} className="img-cover" alt="avatar"/>
+                                
                             </div>
                         </div>
                     <div className="col-md-9 personal-info">

@@ -17,3 +17,14 @@
   margin: 15px;
   cursor: pointer;
 }
+.img-cover{
+    width: 400px;
+    height: 350px;
+}
+h3{
+    color: white;
+}
+.navbar{
+    width: 100%;
+    background: gray;
+}

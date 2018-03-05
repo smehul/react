@@ -18,6 +18,7 @@ class Edit extends Component {
             file: '',
             imagePreviewUrl: '',
             changePic:false,
+            validuser:''
         }
     }  
     
@@ -110,11 +111,18 @@ class Edit extends Component {
         e.preventDefault();
     }
 
-    removePic(){
+    removePic(e){
         this.setState({
-            img:"",
-            imagePreviewUrl:""
+            img:null,
         })
+        e.preventDefault();
+    }
+
+    changeUser(e){
+        this.setState({
+            validuser:true
+        })
+        e.preventDefault();
     }
 
     render(){
@@ -137,6 +145,7 @@ class Edit extends Component {
                                     {$imagePreview}
                                 </div>
                                 <input className="fileInput" 
+                                    
                                     type="file" 
                                     onChange={(e)=>this._handleImageChange(e)} ref="img" name="img"/>  
                                 <button onClick={this.removePic.bind(this)} >Remove Image</button>
@@ -145,46 +154,46 @@ class Edit extends Component {
                         </div>
                         <div className="row">
                             <div className="input-field col s6">
-                                <input onChange={this.handleInputChange.bind(this)} value={this.state.uname} type="text" name="uname" ref="uname"/>
+                                <input onFocus={this.changeUser.bind(this)} validuser={this.state.validuser} onChange={this.handleInputChange.bind(this)} required value={this.state.uname} type="text" name="uname" ref="uname"/>
                                 <label htmlFor="uname" className="active">Username</label>
                             </div>
                         </div>
                         <div className="row"> 
                             <div className="input-field col s3">
-                                <input onChange={this.handleInputChange.bind(this)} type="text" value={this.state.fname} name="fname" ref="fname"/>
+                                <input onChange={this.handleInputChange.bind(this)} required type="text" value={this.state.fname} name="fname" ref="fname"/>
                                 <label htmlFor="fname" className="active">First Name</label>
                             </div>
                             <div className="input-field col s3">
-                                <input onChange={this.handleInputChange.bind(this)} type="text" value={this.state.lname} name="lname" ref="lname"/>
+                                <input onChange={this.handleInputChange.bind(this)} required type="text" value={this.state.lname} name="lname" ref="lname"/>
                                 <label htmlFor="lname" className="active">Last Name</label>
                             </div>
                         </div>
                         
                         <div className="row">
                             <div className="input-field col s6">
-                                <input onChange={this.handleInputChange.bind(this)} type="email" value={this.state.email} name="email" ref="email"/>
+                                <input onChange={this.handleInputChange.bind(this)} required type="email" value={this.state.email} name="email" ref="email"/>
                                 <label htmlFor="email" className="active">Email</label>
                             </div>
                         </div>
                         <div className="row">
                             <div className="input-field col s3">
-                                <input onChange={this.handleInputChange.bind(this)} type="password" value={this.state.password}  name="pass" ref="pass"/>
+                                <input onChange={this.handleInputChange.bind(this)} required type="password" value={this.state.password}  name="pass" ref="pass"/>
                                 <label htmlFor="pass" className="active">Password</label>
                             </div>
                             <div className="input-field col s3">
-                                <input onChange={this.handleInputChange.bind(this)} type="password"  name="cpass" ref="cpass"/>
+                                <input onChange={this.handleInputChange.bind(this)} type="password" required  name="cpass" ref="cpass"/>
                                 <label htmlFor="cpass" className="active">Confirm Password</label>
                             </div>
                         </div>
                         <div className="row">
                             <div className="input-field col s6">
-                            <textarea onChange={this.handleInputChange.bind(this)} value={this.state.address} id="textarea1" name="address" className="materialize-textarea" ref="address"></textarea>
+                            <textarea onChange={this.handleInputChange.bind(this)} required value={this.state.address} id="textarea1" name="address" className="materialize-textarea" ref="address"></textarea>
                                 <label htmlFor="address" className="active">Address</label>
                             </div>
                         </div>
                         <div className="row">
                         <div className="input-field col s3">
-                                <input onChange={this.handleInputChange.bind(this)} type="text" value={this.state.contact} name="contact" ref="contact"/>
+                                <input onChange={this.handleInputChange.bind(this)} type="text" required value={this.state.contact} name="contact" ref="contact"/>
                                 <label htmlFor="contact" className="active">Contact No</label>
                             </div>
                         </div>
