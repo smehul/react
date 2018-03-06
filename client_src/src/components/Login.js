@@ -94,6 +94,9 @@ class Login extends Component {
                         <span> </span>    <Link to="/register" className="waves-effect waves-light btn" > create New User </Link>
                         </div>
                     </div>
+                    <div className="row">
+                        <h5> Forget your Password? <Link to="/forget"> Click here </Link> </h5> 
+                    </div>
                 </form>
             </div>
         )

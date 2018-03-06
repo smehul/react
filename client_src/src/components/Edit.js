@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import InputError from './InputError';
 class Edit extends Component {
    
     constructor(props){
         super(props);
         this.state = {
+            users:[],
             id:localStorage.getItem('userId'),
             uname:'',
             fname:'',
@@ -18,11 +20,24 @@ class Edit extends Component {
             file: '',
             imagePreviewUrl: '',
             changePic:false,
-            validuser:''
+            validcPass:''
         }
     }  
     
+    getUsers(){
+        axios.get('http://localhost:3000/api/demos')
+            .then(response =>{
+                this.setState({
+                    users:response.data
+                }, () => {
+                   console.log(this.state);
+                })
+            })
+            .catch(err => console.log(err));
+    }
+
     componentWillMount(){
+        this.getUsers();
         this.getUserDetails();
         if(this.state.id === ""){
             this.props.history.push('/');
@@ -63,6 +78,7 @@ class Edit extends Component {
     }
 
     handleInputChange(e){
+        
         const target = e.target;
         const value = target.value;
         const name = target.name;
@@ -96,6 +112,10 @@ class Edit extends Component {
         if(!this.state.changePic){
             setImg = this.state.img;
         }
+        let setPass = this.refs.pass.value;
+        if(!setPass){
+            setPass = this.state.password;
+        }
         const updateUser = {
             username: this.refs.uname.value,
             firstname: this.refs.fname.value,
@@ -103,11 +123,20 @@ class Edit extends Component {
             img: setImg,
             address: this.refs.address.value,
             email: this.refs.email.value,
-            password: this.refs.pass.value,
-            contact: this.refs.contact.value
+            password: setPass,
+            contact: this.refs.contact.value,
+            cpassword: this.refs.cpass.value
         }
-        console.log(updateUser)
-        this.editUser(updateUser);
+        const passValue = {
+            pass: this.refs.pass.value,
+            cpass: this.refs.cpass.value
+        }
+        
+        let valid = this.checkInput(passValue);
+        console.log(valid)
+        if(valid == true){
+            this.editUser(updateUser);
+        }
         e.preventDefault();
     }
 
@@ -118,11 +147,18 @@ class Edit extends Component {
         e.preventDefault();
     }
 
-    changeUser(e){
-        this.setState({
-            validuser:true
-        })
-        e.preventDefault();
+    checkInput(passValue){
+        let pass = passValue.pass;
+        let cpass = passValue.cpass;
+        if(pass !== cpass ){
+            this.setState({
+                validcPass:false
+            })
+            return false;
+        }
+        else{
+            return true;
+        }
     }
 
     render(){
@@ -137,6 +173,7 @@ class Edit extends Component {
         return(
             <div>
                 <h1><u>Update User Details</u></h1><br/>
+                <InputError validcPass = {this.state.validcPass}/>
                 <div className="row">
                     <form  onSubmit={this.onSubmit.bind(this)}>
                         <div className="row">
@@ -154,7 +191,7 @@ class Edit extends Component {
                         </div>
                         <div className="row">
                             <div className="input-field col s6">
-                                <input onFocus={this.changeUser.bind(this)} validuser={this.state.validuser} onChange={this.handleInputChange.bind(this)} required value={this.state.uname} type="text" name="uname" ref="uname"/>
+                                <input onChange={this.handleInputChange.bind(this)} required value={this.state.uname} type="text" name="uname" ref="uname"/>
                                 <label htmlFor="uname" className="active">Username</label>
                             </div>
                         </div>
@@ -177,11 +214,11 @@ class Edit extends Component {
                         </div>
                         <div className="row">
                             <div className="input-field col s3">
-                                <input onChange={this.handleInputChange.bind(this)} required type="password" value={this.state.password}  name="pass" ref="pass"/>
+                                <input   type="password"  name="pass" ref="pass"/>
                                 <label htmlFor="pass" className="active">Password</label>
                             </div>
                             <div className="input-field col s3">
-                                <input onChange={this.handleInputChange.bind(this)} type="password" required  name="cpass" ref="cpass"/>
+                                <input type="password"   name="cpass" ref="cpass"/>
                                 <label htmlFor="cpass" className="active">Confirm Password</label>
                             </div>
                         </div>

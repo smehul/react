@@ -1,14 +1,15 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-
+import InputError from './InputError';
 class Register extends Component {
     constructor(){
         super();
         this.state = {
             file: '',
             imagePreviewUrl: '',
-            changePic:false
+            changePic:false,
+            validcPass:''
         }
     }
     addUser(NewUser){
@@ -32,10 +33,29 @@ class Register extends Component {
             address: this.refs.address.value,
             email: this.refs.email.value,
             password: this.refs.pass.value,
+            cpassword: this.refs.cpass.value,
             contact: this.refs.contact.value
         }
-        this.addUser(NewUser);
+        let valid = this.checkInput(NewUser);
+        
+        if(valid == true){
+           this.addUser(NewUser);
+        }
         e.preventDefault();
+    }
+
+    checkInput(updateUser){
+        let pass = updateUser.password;
+        let cpass = updateUser.cpassword;
+        if(pass !== cpass){
+            this.setState({
+                validcPass:false
+            })
+            return false;
+        }
+        else{
+            return true;
+        }
     }
 
     _handleImageChange(e) {
@@ -68,6 +88,7 @@ class Register extends Component {
         return(
             <div>
                 <h1><u>Create new User</u></h1><br/>
+                <InputError validcPass = {this.state.validcPass}/>
                 <div className="row">
                     
                     <form  onSubmit={this.onSubmit.bind(this)}>

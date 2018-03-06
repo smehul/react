@@ -39,7 +39,7 @@ class Forget extends Component {
             
             if(user.email === email){
                 localStorage.setItem('userId', id);
-                this.props.history.push(`/user`);
+                this.props.history.push(`/resetpassword`);
                 this.setState({
                     valid: true
                 })

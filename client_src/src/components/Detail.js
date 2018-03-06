@@ -35,6 +35,7 @@ class Detail extends Component {
         let userId = this.state.users.id;
         axios.delete(`http://localhost:3000/api/demos/${userId}`)
             .then(response => {
+                localStorage.setItem('userId','');
                 this.props.history.push('/');
             }).catch(err => console.log(err));
     }   

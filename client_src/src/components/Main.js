@@ -5,6 +5,7 @@ import Register from './Register';
 import Edit from './Edit';
 import Detail from './Detail';
 import Forget from './Forget';
+import ResetPass from './ResetPass'
 const Main = () => (
     <main>
         <Switch>
@@ -13,6 +14,7 @@ const Main = () => (
             <Route exact path="/user" component={Detail}/>
             <Route exact path="/edit" component={Edit}/>
             <Route exact path="/forget" component={Forget}/>
+            <Route exact path="/resetpassword" component={ResetPass}/>
         </Switch>
     </main>
 ) 
