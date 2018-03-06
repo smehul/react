@@ -127,7 +127,6 @@ class ResetPass extends Component {
                         </div>
                         <div className="row">
                             <input required type="submit" value="Submit" className="btn blue"/><span> </span>
-                            <Link to="/" className="btn grey">Cancel</Link>
                         </div>
                     </form>
                 </div>
