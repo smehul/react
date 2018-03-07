@@ -97,6 +97,11 @@ class ResetPass extends Component {
         }
     }
 
+    cancel(){
+        localStorage.setItem('userId','');
+        this.props.history.push('/');
+    }
+
     render(){
         
         let $imagePreview = (<img src={this.state.img} className="profile-pic"/>);
@@ -126,7 +131,8 @@ class ResetPass extends Component {
                             </div>
                         </div>
                         <div className="row">
-                            <input required type="submit" value="Submit" className="btn blue"/><span> </span>
+                            <input type="submit" value="Submit" className="btn blue"/><span> </span>
+                            <button onClick={this.cancel.bind(this)} className="btn grey">Cancel </button> 
                         </div>
                     </form>
                 </div>
